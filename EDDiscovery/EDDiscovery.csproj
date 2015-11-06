@@ -82,6 +82,8 @@
     <Reference Include="OpenTK.GLControl">
       <HintPath>..\packages\OpenTK.GLControl.1.1.1589.5942\lib\NET40\OpenTK.GLControl.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -93,6 +95,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions">
       <Private>False</Private>
@@ -103,6 +106,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="2DMap\FGEImage.cs" />
@@ -178,6 +183,12 @@
     </Compile>
     <Compile Include="SystemData.cs" />
     <Compile Include="SystemPosition.cs" />
+    <Compile Include="SystemView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemView.Designer.cs">
+      <DependentUpon>SystemView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools.cs" />
     <Compile Include="TravelHistoryControl.cs">
       <SubType>UserControl</SubType>
@@ -241,6 +252,9 @@
     <EmbeddedResource Include="StatsForm.resx">
       <DependentUpon>StatsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SystemView.resx">
+      <DependentUpon>SystemView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TravelHistoryControl.resx">
       <DependentUpon>TravelHistoryControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,6 +301,12 @@
   <ItemGroup>
     <Folder Include="Maps\" />
     <Folder Include="SQLite\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfCustomControlLibrary1\WpfLibrary.csproj">
+      <Project>{d47eee92-b79a-4c96-a5af-6c0466189f93}</Project>
+      <Name>WpfLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

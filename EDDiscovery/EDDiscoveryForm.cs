@@ -21,6 +21,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 namespace EDDiscovery
 {
@@ -752,8 +753,10 @@ namespace EDDiscovery
             //FormSagCarinaMission frm = new FormSagCarinaMission(this);
             //            frm.Show();
 
+            var wpfwindow = new WPFLibrary.SystemViewWindow();
+            ElementHost.EnableModelessKeyboardInterop(wpfwindow);
+            wpfwindow.Show();
 
-          
         }
 
         private void addNewStarToolStripMenuItem_Click(object sender, EventArgs e)
