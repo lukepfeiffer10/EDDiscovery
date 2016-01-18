@@ -197,6 +197,7 @@
     <Compile Include="DB\SystemClass.cs" />
     <Compile Include="DB\SystemNoteClass.cs" />
     <Compile Include="HttpCom.cs" />
+    <Compile Include="MenuColorTable.cs" />
     <Compile Include="PlanetSystems\AddMaterialNodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -262,6 +263,9 @@
     <Compile Include="SystemViewForm.Designer.cs">
       <DependentUpon>SystemViewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Themes\DarkTheme.cs" />
+    <Compile Include="Themes\LightTheme.cs" />
+    <Compile Include="Themes\Theme.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="TravelHistoryControl.cs">
       <SubType>UserControl</SubType>

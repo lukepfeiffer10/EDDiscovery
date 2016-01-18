@@ -1,8 +1,10 @@
 ﻿using EDDiscovery.DB;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using EDDiscovery2.Themes;
 
 namespace EDDiscovery2
 {
@@ -12,12 +14,14 @@ namespace EDDiscovery2
         private bool _EDSMLog;
         readonly public string LogIndex;
         private bool _canSkipSlowUpdates = false;
+        private ObservableCollection<ITheme> _themes;
 
         SQLiteDBClass _db = new SQLiteDBClass();
 
         public EDDConfig()
         {
             LogIndex = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            SelectedTheme = new LightTheme();
         }
 
         public bool UseDistances
@@ -67,5 +71,17 @@ namespace EDDiscovery2
             _EDSMLog = _db.GetSettingBool("EDSMLog", false);
             _canSkipSlowUpdates = _db.GetSettingBool("CanSkipSlowUpdates", false);
         }
+
+        public ObservableCollection<ITheme> Themes
+        {
+            get
+            {
+                _themes = new ObservableCollection<ITheme> {new DarkTheme(), new LightTheme()};
+                return _themes;
+            }
+            set { _themes = value; }
+        }
+
+        public ITheme SelectedTheme { get; set; }
     }
 }

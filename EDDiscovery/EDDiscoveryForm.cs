@@ -17,6 +17,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using EDDiscovery2.Themes;
 
 namespace EDDiscovery
 {
@@ -65,6 +66,19 @@ namespace EDDiscovery
             trilaterationControl.InitControl(this);
             travelHistoryControl1.InitControl(this);
             imageHandler1.InitControl(this);
+            menuStrip1.Renderer = new MenuRenderer(new MenuColorTable());
+            listBox1.DataSource = EDDConfig.Themes;
+            listBox1.DisplayMember = "Name";
+            listBox1.ValueMember = "Name";
+            listBox1.SelectedValueChanged += delegate(object sender, EventArgs args)
+            {
+                var listBox = sender as ListBox;
+                var theme = listBox.SelectedItem as ITheme;
+                EDDConfig.SelectedTheme = theme;
+                this.BackColor = EDDConfig.SelectedTheme.MainBackgroundColor;
+                this.ForeColor = EDDConfig.SelectedTheme.MainFontColor;
+                ApplyThemeToControls(this.Controls);
+            };
 
             SystemNames = new AutoCompleteStringCollection();
             Map = new EDDiscovery2._3DMap.MapManager();
@@ -1153,6 +1167,66 @@ namespace EDDiscovery
             }
 
         }
+        
+        public void ApplyThemeToControls(Control.ControlCollection controls)
+        {
+            foreach (var control in controls)
+            {
+                if (control is GroupBox)
+                {
+                    var gb = control as GroupBox;
+                    gb.ForeColor = EDDConfig.SelectedTheme.MainFontColor;
+                }
+                else if (control is TextBox)
+                {
+                    var tb = control as TextBox;
+                    tb.ForeColor = EDDConfig.SelectedTheme.MainFontColor;
+                    tb.BackColor = EDDConfig.SelectedTheme.SecondaryBackgroundColor;
+                }
+                else if (control is Button)
+                {
+                    var button = control as Button;
+                    button.BackColor = EDDConfig.SelectedTheme.AccentColor;
+                    button.UseVisualStyleBackColor = EDDConfig.SelectedTheme.UseVisualStyleBackColor;
+                }
+                else if (control is TabPage)
+                {
+                    var tab = control as TabPage;
+                    tab.BackColor = EDDConfig.SelectedTheme.MainBackgroundColor;
+                    tab.ForeColor = EDDConfig.SelectedTheme.MainFontColor;
+                }
+                else if (control is MenuStrip)
+                {
+                    var menu = control as MenuStrip;
+                    menu.Renderer = EDDConfig.SelectedTheme.ToolStripRenderer;
+                    menu.BackColor = EDDConfig.SelectedTheme.MainBackgroundColor;
+                    menu.ForeColor = EDDConfig.SelectedTheme.MainFontColor;
+                }
+                else if (control is DataGridView)
+                {
+                    var dg = control as DataGridView;
+                    dg.BackgroundColor = EDDConfig.SelectedTheme.GridBackgroundColor;
+                    dg.ForeColor = EDDConfig.SelectedTheme.GridForeColor;
+                    dg.GridColor = EDDConfig.SelectedTheme.GridColor;
+                    dg.BackColor = EDDConfig.SelectedTheme.GridBackColor;
+                    dg.DefaultCellStyle.BackColor = EDDConfig.SelectedTheme.GridCellBackColor;
+                    dg.DefaultCellStyle.ForeColor = EDDConfig.SelectedTheme.GridCellForeColor;
+                    dg.DefaultCellStyle.SelectionBackColor = EDDConfig.SelectedTheme.GridCellSelectionBackColor;
+                    dg.DefaultCellStyle.SelectionForeColor = EDDConfig.SelectedTheme.GridCellSelectionForeColor;
+                }
+                else
+                {
+                    var c = control as Control;
+                    c.BackColor = EDDConfig.SelectedTheme.MainBackgroundColor;
+                    c.ForeColor = EDDConfig.SelectedTheme.MainFontColor;
+                }
 
+                if (control is Control)
+                {
+                    var container = control as Control;
+                    ApplyThemeToControls(container.Controls);
+                }
+            }
+        }
     }
 }
